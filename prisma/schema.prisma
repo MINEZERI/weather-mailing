@@ -1,0 +1,25 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  moduleFormat    = "esm"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgcrypto]
+}
+
+model Subscription {
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  email     String
+  city      String
+  frequency Frequency
+  confirmed Boolean
+}
+
+enum Frequency {
+  hourly
+  daily
+}
