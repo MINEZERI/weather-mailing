@@ -1,8 +1,8 @@
 generator client {
   provider        = "prisma-client"
   output          = "../src/generated/prisma"
-  moduleFormat    = "esm"
   previewFeatures = ["postgresqlExtensions"]
+  moduleFormat    = "esm"
 }
 
 datasource db {
@@ -16,7 +16,7 @@ model Subscription {
   email     String
   city      String
   frequency Frequency
-  confirmed Boolean
+  confirmed Boolean?
 }
 
 enum Frequency {

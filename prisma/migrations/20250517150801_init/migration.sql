@@ -1,4 +1,4 @@
- -- CreateExtension
+-- CreateExtension
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- CreateEnum
@@ -10,7 +10,7 @@ CREATE TABLE "Subscription" (
     "email" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "frequency" "Frequency" NOT NULL,
-    "confirmed" BOOLEAN NOT NULL,
+    "confirmed" BOOLEAN,
 
     CONSTRAINT "Subscription_pkey" PRIMARY KEY ("id")
 );
