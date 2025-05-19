@@ -43,7 +43,7 @@ export class EmailService {
       to: email,
       subject: `Weather Update for ${city}`,
       html: `
-        <h2>Current Weather in ${city}</h2>
+        <h2>Weather Forecast in ${city}</h2>
         <p>Temperature: ${weather.temperature}°C</p>
         <p>Humidity: ${weather.humidity}%</p>
         <p>Conditions: ${weather.description}</p>
