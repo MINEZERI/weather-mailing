@@ -15,7 +15,9 @@ export class SubscriptionService {
     try {
       const payload = verifyToken(token);
       email = payload.email;
-    } catch (err) {
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
       throw new Error("Invalid token");
     }
 

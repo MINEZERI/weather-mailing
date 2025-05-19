@@ -16,11 +16,13 @@ export class SubscriptionController {
     try {
       await this.subscriptionService.subscribe(email, city, frequency);
       return res.status(200).json({ message: "Confirmation email sent" });
-    } catch (error) {
-      if (error.message === "Email already subscribed") {
-        return res.status(409).json({ error: error.message });
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
+      if (err.message === "Email already subscribed") {
+        return res.status(409).json({ error: err.message });
       }
-      return res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: err.message });
     }
   }
 
@@ -35,11 +37,13 @@ export class SubscriptionController {
     try {
       await this.subscriptionService.confirm(token);
       return res.status(200).json({ message: "Subscription confirmed" });
-    } catch (error) {
-      if (error.message === "Token not found") {
-        return res.status(404).json({ error: error.message });
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
+      if (err.message === "Token not found") {
+        return res.status(404).json({ error: err.message });
       }
-      return res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: err.message });
     }
   }
 
@@ -54,11 +58,13 @@ export class SubscriptionController {
     try {
       await this.subscriptionService.unsubscribe(token);
       return res.status(200).json({ message: "Unsubscribed successfully" });
-    } catch (error) {
-      if (error.message === "Token not found") {
-        return res.status(404).json({ error: error.message });
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
+      if (err.message === "Token not found") {
+        return res.status(404).json({ error: err.message });
       }
-      return res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: err.message });
     }
   }
 }

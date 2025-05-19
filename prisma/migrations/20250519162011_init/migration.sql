@@ -1,12 +1,9 @@
--- CreateExtension
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-
 -- CreateEnum
 CREATE TYPE "Frequency" AS ENUM ('hourly', 'daily');
 
 -- CreateTable
 CREATE TABLE "Subscription" (
-    "id" TEXT NOT NULL DEFAULT gen_random_uuid(),
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "frequency" "Frequency" NOT NULL,

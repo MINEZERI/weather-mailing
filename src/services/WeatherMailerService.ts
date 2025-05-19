@@ -31,7 +31,9 @@ export class WeatherMailerService {
             token,
           );
         console.log(`Sent ${frequency} update to ${email}`);
-      } catch (err) {
+      } catch (err: unknown) {
+        if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
         throw new Error(`Failed to send update to ${sub.email}: ${err}`);
       }
     }

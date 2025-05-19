@@ -16,11 +16,13 @@ export class WeatherController {
     try {
       const weather = await this.weatherService.getCurrent(city);
       return res.status(200).json(weather);
-    } catch (error) {
-      if (error.message.includes("not found")) {
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
+      if (err.message.includes("not found")) {
         return res.status(404).json({ error: "City not found" });
       }
-      return res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: err.message });
     }
   }
 }

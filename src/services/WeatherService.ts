@@ -18,7 +18,7 @@ export class WeatherService {
       }
 
       return response.json();
-    } catch (err) {
+    } catch (err: unknown) {
       throw new Error("City not found");
     }
   }
@@ -37,7 +37,9 @@ export class WeatherService {
         humidity: current.humidity,
         description: current.condition.text,
       };
-    } catch (err) {
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
       console.log(`Weather API error for city ${city}: ${err}`);
       throw new Error(err.message);
     }
@@ -58,7 +60,9 @@ export class WeatherService {
         humidity: forecast.avghumidity,
         description: forecast.condition.text,
       };
-    } catch (err) {
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) throw new Error("Unknown error occured");
+
       console.log(`Weather API error for city ${city}: ${err}`);
       throw new Error(err.message);
     }

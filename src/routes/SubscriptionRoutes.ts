@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { SubscriptionRepository } from "../repositories/SubscriptionRepository.js";
 import { SubscriptionService } from "../services/SubscriptionService.js";
 import { SubscriptionController } from "../controllers/SubscriptionController.js";
 import { EmailService } from "../services/EmailService.js";
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "@prisma/client/edge"; // Спеціальний ESM-клієнт
 import {
   subscribeValidators,
   tokenParamValidators,
@@ -18,15 +18,27 @@ export function subscriptionRoutes() {
     ),
   );
 
-  router.post("/subscribe", subscribeValidators, (req, res) => {
-    controller.subscribe(req, res);
-  });
-  router.get("/confirm/:token", tokenParamValidators, (req, res) => {
-    controller.confirm(req, res);
-  });
-  router.get("/unsubscribe/:token", tokenParamValidators, (req, res) => {
-    controller.unsubscribe(req, res);
-  });
+  router.post(
+    "/subscribe",
+    subscribeValidators,
+    (req: Request, res: Response) => {
+      controller.subscribe(req, res);
+    },
+  );
+  router.get(
+    "/confirm/:token",
+    tokenParamValidators,
+    (req: Request, res: Response) => {
+      controller.confirm(req, res);
+    },
+  );
+  router.get(
+    "/unsubscribe/:token",
+    tokenParamValidators,
+    (req: Request, res: Response) => {
+      controller.unsubscribe(req, res);
+    },
+  );
 
   return router;
 }

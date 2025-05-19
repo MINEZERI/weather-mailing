@@ -1,4 +1,4 @@
-import { PrismaClient, Subscription } from "../generated/prisma/client.js";
+import { PrismaClient, Subscription } from "@prisma/client";
 
 export class SubscriptionRepository {
   constructor(private prisma: PrismaClient) {}
@@ -26,7 +26,9 @@ export class SubscriptionRepository {
     return this.prisma.subscription.delete({ where: { email } });
   }
 
-  async getConfirmedSubscriptions(frequency: "hourly" | "daily") {
+  async getConfirmedSubscriptions(
+    frequency: "hourly" | "daily",
+  ): Promise<Array<Subscription>> {
     return this.prisma.subscription.findMany({
       where: {
         confirmed: true,
