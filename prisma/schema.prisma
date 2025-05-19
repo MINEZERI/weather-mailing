@@ -13,10 +13,10 @@ datasource db {
 
 model Subscription {
   id        String    @id @default(dbgenerated("gen_random_uuid()"))
-  email     String
+  email     String    @unique
   city      String
   frequency Frequency
-  confirmed Boolean?
+  confirmed Boolean   @default(false)
 }
 
 enum Frequency {
