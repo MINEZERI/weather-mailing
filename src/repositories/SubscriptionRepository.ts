@@ -29,7 +29,7 @@ export class SubscriptionRepository {
   async getConfirmedSubscriptions(frequency: "hourly" | "daily") {
     return this.prisma.subscription.findMany({
       where: {
-        /* confirmed: true */
+        confirmed: true,
         frequency,
       },
     });

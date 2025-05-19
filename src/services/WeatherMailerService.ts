@@ -13,7 +13,7 @@ export class WeatherMailerService {
 
   private async sendForecastToSubscribers(frequency: "hourly" | "daily") {
     const subscriptions =
-      this.subscriptionRepo.getConfirmedSubscriptions(frequency);
+      await this.subscriptionRepo.getConfirmedSubscriptions(frequency);
     if (!subscriptions) return;
 
     console.log(subscriptions);
@@ -23,7 +23,7 @@ export class WeatherMailerService {
         const { email, city } = sub;
         const token = generateToken({ email });
         const weather = await this.weatherService.getForecast(sub.city);
-        if (!weather)
+        if (weather)
           await this.emailService.sendWeatherUpdate(
             email,
             city,
